@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "+k8cnT6bSLngIcyQk4V1WfFlbj00cWi3fzjmjrBsRlo=",
+  "Source": "ImportExcel.API",
+  "BasePath": "_content/ImportExcel.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

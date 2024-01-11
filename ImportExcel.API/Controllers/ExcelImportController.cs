@@ -7,7 +7,7 @@ namespace ImportExcel.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExcelImportController : ControllerBase
+  public class ExcelImportController : ControllerBase
     {
         private readonly ExcelDbContext _context;
 
@@ -55,10 +55,22 @@ namespace ImportExcel.API.Controllers
                 // Map other properties
             });
 
-            _context.Entities.AddRange(entitiesToSave);
-            await _context.SaveChangesAsync();
+            var existingRollNos = _context.Entities.Select(e => e.RollNo).ToList();
 
-            return Ok("Données importées avec succès.");
+            var duplicates = excelDataList.Where(data => existingRollNos.Contains(data.RollNo)).ToList();
+
+            if (duplicates.Any())
+            {
+                return BadRequest("Certaines données existent déjà dans la base de données.");
+            }
+            else
+            {
+                _context.Entities.AddRange(entitiesToSave);
+                await _context.SaveChangesAsync();
+
+                return Ok("Données importées avec succès.");
+            }
+            /////////////////////////////////////////////
         }
-    }
+    }  
 }
